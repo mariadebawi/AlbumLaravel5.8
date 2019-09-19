@@ -28,6 +28,6 @@ class ImageRepository
 
    public function getAllImages()
     {
-      return Image::latestWithUser()->paginate (config ('app.pagination'));
+      return Image::latestWithUser()->paginate(config ('app.pagination'));
     }
 }
