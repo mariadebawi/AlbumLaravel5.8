@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'settings'
     ];
 
     /**
@@ -42,15 +42,26 @@ class User extends Authenticatable implements MustVerifyEmail
         /**
          * Get the images.
          */
-        public function images()
+     public function images()
         {
             return $this->hasMany (Image::class);
         }
 
 
 
-   public function getAdminAttribute()
-    {
+       public function getAdminAttribute()
+        {
         return $this->role === 'admin';
-    }
+        }
+
+
+    public function getAdultAttribute()
+     {
+      return $this->settings->adult;
+     }
+     
+     public function getSettingsAttribute($value)
+        {
+            return json_decode ($value);
+        }
 }

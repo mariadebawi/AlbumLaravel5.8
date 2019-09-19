@@ -32,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
             return auth()->check() && auth()->user()->admin;
         });
 
+        
+        Blade::if ('adminOrOwner', function ($id) {
+            return auth ()->check () && (auth ()->id () === $id || auth ()->user ()->admin);
+        });
+
+
 
         if (request ()->server ("SCRIPT_NAME") !== 'artisan') {
             view ()->share ('categories', resolve(CategoryRepository::class)->getAll());

@@ -20,11 +20,21 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/', 'HomeController@index')->name('home');
+
+//Route::get('/', 'HomeController@index')->name('home')->middleware('verified');
+
 
 
 Route::middleware('admin')->group(function () {
     Route::resource ('category', 'CategoryController', [
         'except' => 'show'
+    ]);
+});
+
+
+Route::middleware ('auth', 'verified')->group (function () {
+    Route::resource ('image', 'ImageController', [
+        'only' => ['create', 'store', 'destroy', 'update']
     ]);
 });
