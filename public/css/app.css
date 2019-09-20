@@ -12665,3 +12665,8 @@ body {
   align-self: center;
 }
 
+.text-title,
+h1 {
+  color: white;
+}
+
