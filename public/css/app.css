@@ -12672,3 +12672,12 @@ h1 {
   text-align: center;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+.star-rating {
+  direction: rtl;
+  display: block;
+}
+

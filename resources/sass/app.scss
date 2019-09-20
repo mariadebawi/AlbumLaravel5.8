@@ -51,3 +51,12 @@ h1 {
     text-transform: uppercase;
     text-align: center;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
+.star-rating {
+    direction: rtl;
+    display: block;
+}

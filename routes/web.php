@@ -40,3 +40,6 @@ Route::middleware ('auth', 'verified')->group (function () {
 });
 
 Route::name('category')->get('category/{slug}', 'ImageController@category');
+
+Route::name ('user')->get ('user/{user}', 'ImageController@user');
+
