@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Policies\ImagePolicy;
 
-use App\Models\User;
+use App\Models\ {User, Image};
 
 
 
@@ -31,10 +32,11 @@ class ImageController extends Controller
          return view ('home', compact ('category', 'images'));
      }
 
-     
+
      public function user(User $user)
    {
          $images = $this->imageRepository->getImagesForUser ($user->id);
+
         return view ('home', compact ('user', 'images'));
     }
 
@@ -67,14 +69,14 @@ class ImageController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-   public function store(Request $request)
+    public function store(Request $request)
     {
-    $request->validate([
-        'image' => 'required|image|max:2000',
-        'category_id' => 'required|exists:categories,id',
-        'description' => 'nullable|string|max:255',
-    ]);
-        $this->repository->store($request);
+        $request->validate([
+            'image' => 'required|image|max:2000',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string|max:255',
+        ]);
+        $this->imageRepository->store($request);
         return back()->with('ok', __("L'image a bien été enregistrée"));
     }
 
@@ -119,8 +121,16 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function destroy(Image $image)
     {
-        //
+        $this->authorize('manage', $image);
+        $image->delete ();
+        return back ();
     }
+
+
+
+
+
 }
