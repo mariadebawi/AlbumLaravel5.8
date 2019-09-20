@@ -28,6 +28,10 @@
                                 @case('reload')
                                     location.reload()
                                     @break
+                                    @case('home')
+                                    location.replace('/')
+                                    @break
+
                             @endswitch
                         })
                         .fail(() => {

@@ -22,7 +22,7 @@
             </div>
         </div>
     @endif
-    
+
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Album') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,13 +74,18 @@
                     </div>
                 </li>
             @endauth
-            
+
             </ul>
             <ul class="navbar-nav ml-auto">
                 @guest
                 <li class="nav-item{{ currentRoute(route('login')) }}"><a class="nav-link" href="{{ route('login') }}">@lang('Connexion')</a></li>
                 <li class="nav-item{{ currentRoute(route('register')) }}"><a class="nav-link" href="{{ route('register') }}">@lang('Inscription')</a></li>
                 @else
+                    <li class="nav-item{{ currentRoute(
+                    route('profile.edit', auth()->id()),
+                    route('profile.show', auth()->id())  )}}">
+                        <a class="nav-link" href="{{ route('profile.edit', auth()->id()) }}">@lang('Profil')</a>
+                    </li>
                     <li class="nav-item">
                         <a id="logout" class="nav-link" href="{{ route('logout') }}">@lang('Déconnexion')</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hide">

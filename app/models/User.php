@@ -59,9 +59,13 @@ class User extends Authenticatable implements MustVerifyEmail
      {
       return $this->settings->adult;
      }
-     
+
      public function getSettingsAttribute($value)
         {
             return json_decode ($value);
         }
-}
+    public function getPaginationAttribute()
+    {
+        return $this->settings->pagination;
+    }
+    }

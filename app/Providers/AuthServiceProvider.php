@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Providers;
+use App\Models\ { User, Image };
+use App\Policies\ { ImagePolicy, UserPolicy };
+
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-use App\Models\Image;
-use App\Policies\ImagePolicy;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -19,6 +20,9 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
         Image::class => ImagePolicy::class,
+        User::class => UserPolicy::class,
+
+
 
     ];
 

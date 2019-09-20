@@ -8,6 +8,13 @@
     </div>
 
     <main class="container-fluid">
+
+        @if(session('updated'))
+            <div class="alert alert-dark" role="alert">
+                {{ session('updated') }}
+            </div>
+        @endif
+
         @isset($category)
             <h2 class="text-title mb-3">{{ $category->name }}</h2>
         @endif
@@ -42,37 +49,40 @@
                             <div>
                                 <div class="star-rating" id="{{ $image->id }}">
                                       <span class="float-right">
+                                   @adminOrOwner($image->user_id)
 
-            <a class="toggleIcons"
-               href="#">
-            <i class="fa fa-cog"></i>
-            </a>
-            <span class="menuIcons" style="display: none">
-                <a class="form-delete text-danger"
-                   href="{{ route('image.destroy', $image->id) }}"
-                   data-toggle="tooltip"
-                   title="@lang('Supprimer cette photo')">
-                    <i class="fa fa-trash"></i>
-                </a>
-                <a class="description-manage"
-                   href="#"
-                   data-toggle="tooltip"
-                   title="@lang('Gérer la description')">
-                    <i class="fa fa-comment"></i>
-                </a>
-                <a class="category-edit"
-                   data-id="{{ $image->category_id }}"
-                   href="{{ route('image.update', $image->id) }}"
-                   data-toggle="tooltip"
-                   title="@lang('Changer de catégorie')">
-                    <i class="fa fa-edit"></i>
-                </a>
-                <a class="adult-edit"
-                   href="#"
-                   data-toggle="tooltip"
-                   title="@lang('Changer de statut')">
-                    <i class="fa @if($image->adult) fa-graduation-cap @else fa-child @endif"></i>
-                </a>
+                                    <a class="toggleIcons"
+                                       href="#">
+                                    <i class="fa fa-cog"></i>
+                                    </a>
+                                    <span class="menuIcons" style="display: none">
+                                        <a class="form-delete text-danger"
+                                           href="{{ route('image.destroy', $image->id) }}"
+                                           data-toggle="tooltip"
+                                           title="@lang('Supprimer cette photo')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                        <a class="description-manage"
+                                           href="{{ route('image.description', $image->id) }}"
+                                           data-toggle="tooltip"
+                                           title="@lang('Gérer la description')">
+                                            <i class="fa fa-comment"></i>
+                                        </a>
+                                        <a class="category-edit"
+                                           data-id="{{ $image->category_id }}"
+                                           href="{{ route('image.update', $image->id) }}"
+                                           data-toggle="tooltip"
+                                           title="@lang('Changer de catégorie')">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="adult-edit"
+                                           href="{{ route('image.adult', $image->id) }}"
+                                           data-toggle="tooltip"
+                                           title="@lang('Changer de statut')">
+                                            <i class="fa @if($image->adult) fa-graduation-cap @else fa-child @endif"></i>
+                                        </a>
+                                        @endadminOrOwner
+
             </span>
             <form action="{{ route('image.destroy', $image->id) }}" method="POST" class="hide">
                 @csrf
@@ -89,6 +99,58 @@
         <div class="d-flex justify-content-center">
             {{ $images->links() }}
         </div>
+
+
+            <div class="modal fade" id="changeDescription" tabindex="-1" role="dialog" aria-labelledby="descriptionLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="descriptionLabel">@lang('Changement de la description')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="descriptionForm" action="" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="description" id="description">
+                                    <small class="invalid-feedback"></small>
+                                </div>
+                                <button type="submit" class="btn btn-primary">@lang('Envoyer')</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="changeCategory" tabindex="-1" role="dialog" aria-labelledby="categoryLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="categoryLabel">@lang('Changement de la catégorie')</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editForm" action="" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <div class="form-group">
+                                    <select class="form-control" name="category_id">
+                                        @foreach($categories as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">@lang('Envoyer')</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
     </main>
 @endsection
 @section('script')
@@ -100,17 +162,25 @@
             $('.card-columns').magnificPopup({
                 delegate: 'a.image-link',
                 type: 'image',
-                tClose: '@lang("Fermer (Esc)")'@if($images->count() > 1),
-                gallery: {
-                    enabled: true,
-                    tPrev: '@lang("Précédent (Flèche gauche)")',
-                    tNext: '@lang("Suivant (Flèche droite)")'
-                },
-                callbacks: {
-                    buildControls: function () {
-                        this.contentContainer.append(this.arrowLeft.add(this.arrowRight))
-                    }
-                }@endif
+                tClose: '@lang("Fermer (Esc)")'@if($images
+        ->
+            count() > 1
+        ),
+            gallery: {
+                enabled: true,
+                    tPrev
+            :
+                '@lang("Précédent (Flèche gauche)")',
+                    tNext
+            :
+                '@lang("Suivant (Flèche droite)")'
+            }
+        ,
+            callbacks: {
+                buildControls: function () {
+                    this.contentContainer.append(this.arrowLeft.add(this.arrowRight))
+                }
+            }@endif
         })
             $('a.toggleIcons').click((e) => {
                 e.preventDefault();
@@ -135,6 +205,103 @@
                     }
                 })
             })
-        })
+
+
+            const swallAlertServer = () => {
+                swal.fire({
+                    title: '@lang('Il semble y avoir une erreur sur le serveur, veuillez réessayer plus tard...')',
+                    type: 'warning'
+                })
+            }
+            $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            })
+            $('a.description-manage').click((e) => {
+                e.preventDefault()
+                let that = $(e.currentTarget)
+                let text = that.parents('.card').find('.card-text').text()
+                $('#description').val(text)
+                $('#descriptionForm').attr('action', that.attr('href')).find('input').removeClass('is-invalid').next().text()
+                $('#changeDescription').modal('show')
+            })
+            $('#descriptionForm').submit((e) => {
+                e.preventDefault()
+                let that = $(e.currentTarget)
+                $.ajax({
+                    method: 'put',
+                    url: that.attr('action'),
+                    data: that.serialize()
+                })
+                    .done((data) => {
+                        let card = $('#image' + data.id)
+                        let body = card.find('.card-body')
+                        if (body.length) {
+                            body.children().text(data.description)
+                        } else {
+                            card.children('a').after('<div class="card-body"><p class="card-text">' + data.description + '</p></div>')
+                        }
+                        $('#changeDescription').modal('hide')
+                    })
+                    .fail((data) => {
+                        if (data.status === 422) {
+                            $.each(data.responseJSON.errors, function (key, value) {
+                                $('#descriptionForm input[name=' + key + ']').addClass('is-invalid').next().text(value)
+                            })
+                        } else {
+                            swallAlertServer()
+                        }
+                    })
+            })
+
+            $('a.category-edit').click((e) => {
+                e.preventDefault()
+                let that = $(e.currentTarget)
+                $('select').val(that.attr('data-id'))
+                $('#editForm').attr('action', that.attr('href'))
+                $('#changeCategory').modal('show')
+
+            })
+
+
+
+
+            $('a.adult-edit').click((e) => {
+                e.preventDefault()
+                let that = $(e.currentTarget)
+                let icon = that.children()
+                let adult = icon.hasClass('fa-graduation-cap')
+                if(adult) {
+                    icon.removeClass('fa-graduation-cap')
+                } else {
+                    icon.removeClass('fa-child')
+                }
+                icon.addClass('fa-cog fa-spin')
+                adult = !adult
+                $.ajax({
+                    method: 'put',
+                    url: that.attr('href'),
+                    data: { adult: adult }
+                })
+
+                    .done(() => {
+                        that.tooltip('hide')
+                        let icon = that.children()
+                        icon.removeClass('fa-cog fa-spin')
+                        let card = that.parents('.card')
+                        if(adult) {
+                            icon.addClass('fa-graduation-cap')
+                            card.addClass('border-danger')
+                        } else {
+                            icon.addClass('fa-child')
+                            card.removeClass('border-danger')
+                        }
+                    })
+                    .fail(() => {
+                        swallAlertServer()
+                    })
+            })
+
+        });
+
     </script>
 @endsection

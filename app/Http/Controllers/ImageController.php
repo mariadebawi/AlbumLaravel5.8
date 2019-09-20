@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Policies\ImagePolicy;
 
 use App\Models\ {User, Image};
 
@@ -110,12 +109,37 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Image $image)
     {
-        //
+        $this->authorize ('manage', $image);
+
+        $image->category_id = $request->category_id;
+        $image->save();
+        return back()->with('updated', __('La catégorie a bien été changée !'));
     }
 
-    /**
+
+    public function descriptionUpdate(Request $request, Image $image)
+    {
+        $this->authorize ('manage', $image);
+
+        $request->validate ([
+            'description' => 'nullable|string|max:255'
+        ]);
+        $image->description = $request->description;
+        $image->save();
+        return $image;
+    }
+
+
+    public function adultUpdate(Request $request, Image $image)
+    {
+        $image->adult = $request->adult == 'true';
+        $image->save();
+        return response()->json();
+    }
+
+        /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
