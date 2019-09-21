@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 
+use App\Repositories\ImageRepository;
+
+
 
 class ProfileController extends Controller
 {
@@ -54,9 +57,11 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ImageRepository $imageRepository, User $user)
     {
-        //
+        $this->authorize ('manage', $user);
+        $images = $imageRepository->getImagesForUser ($user->id);
+        return view ('profile.data', compact ('user', 'images'));
     }
 
     /**
