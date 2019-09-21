@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f5781d9d-fe4d-4742-83a5-346296cae43d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/profile/data.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfileController.php" afterDir="false" />
-    </list>
+    <list default="true" id="f5781d9d-fe4d-4742-83a5-346296cae43d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +111,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/work/ProjectHtml5" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RunDashboard">
@@ -148,7 +145,7 @@
       <workItem from="1568976982427" duration="12694000" />
       <workItem from="1568996816184" duration="2337000" />
       <workItem from="1569029174537" duration="276000" />
-      <workItem from="1569056754436" duration="186000" />
+      <workItem from="1569056754436" duration="862000" />
     </task>
     <servers />
   </component>
