@@ -59,3 +59,8 @@ Route::middleware ('auth', 'verified')->group (function () {
     ]);
 });
 
+Route::middleware ('auth', 'verified')->group (function () {
+    Route::resource('album', 'AlbumController', [
+        'except' => 'show'
+    ]);
+}) ;

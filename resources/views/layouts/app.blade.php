@@ -62,14 +62,24 @@
                 @endadmin
                @auth
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle{{ currentRoute(route('image.create'))}}"
-                    href="#" id="navbarDropdownGestAlbum" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle{{ currentRoute(
+                            route('album.create'),
+                            route('image.create'),
+                            route('album.index')
+                        )}}"
+                       href="#" id="navbarDropdownGestAlbum" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         @lang('Gestion')
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownGestAlbum">
                         <a class="dropdown-item" href="{{ route('image.create') }}">
                             <i class="fas fa-images fa-lg"></i> @lang('Ajouter une image')
+                        </a>
+                        <a class="dropdown-item" href="{{ route('album.create') }}">
+                            <i class="fas fa-folder-open fa-lg"></i> @lang('Ajouter un album')
+                        </a>
+                        <a class="dropdown-item" href="{{ route('album.index') }}">
+                            <i class="fas fa-wrench fa-lg"></i> @lang('Gérer les albums')
                         </a>
                     </div>
                 </li>

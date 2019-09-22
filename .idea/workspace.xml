@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f5781d9d-fe4d-4742-83a5-346296cae43d" name="Default Changelist" comment="" />
+    <list default="true" id="f5781d9d-fe4d-4742-83a5-346296cae43d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/models/Album.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/repositories/AlbumRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/albums/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/albums/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/albums/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_19_115729_create_images_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_19_115729_create_images_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,11 +122,21 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1R6A1A9OJLk4cb5UXHyEQ0aNdIJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/work/ProjectHtml5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/repositories" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\mesannonces\app\repositories" />
+      <recent name="C:\laragon\www\mesannonces\resources\views" />
+      <recent name="C:\laragon\www\mesannonces\app\models" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -146,6 +170,7 @@
       <workItem from="1568996816184" duration="2337000" />
       <workItem from="1569029174537" duration="276000" />
       <workItem from="1569056754436" duration="862000" />
+      <workItem from="1569175057990" duration="6851000" />
     </task>
     <servers />
   </component>
