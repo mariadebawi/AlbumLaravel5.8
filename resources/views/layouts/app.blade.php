@@ -44,6 +44,24 @@
                         @endforeach
                      </div>
                 </li>
+                @isset($albums)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle
+            @isset($album)
+                        {{ currentRoute(route('album', $album->slug))}}
+                        @endisset
+                            " href="#" id="navbarDropdownAlbum" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @lang('Albums')
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownAlbum">
+                            @foreach($albums as $album)
+                                <a class="dropdown-item"
+                                   href="{{ route('album', $album->slug) }}">{{ $album->name }}</a>
+                            @endforeach
+                        </div>
+                    </li>
+                @endisset
+
                 @admin
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle{{ currentRoute(route('category.create'))}}" href="#" id="navbarDropdownGestCat" role="button" data-toggle="dropdown"

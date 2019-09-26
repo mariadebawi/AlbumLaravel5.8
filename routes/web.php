@@ -64,3 +64,5 @@ Route::middleware ('auth', 'verified')->group (function () {
         'except' => 'show'
     ]);
 }) ;
+
+Route::name ('album')->get ('album/{slug}', 'ImageController@album');

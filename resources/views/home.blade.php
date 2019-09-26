@@ -15,6 +15,11 @@
             </div>
         @endif
 
+        @isset($album)
+                <h2 class="text-title mb-3">{{ $album->name }}</h2>
+            @endif
+
+            
         @isset($category)
             <h2 class="text-title mb-3">{{ $category->name }}</h2>
         @endif

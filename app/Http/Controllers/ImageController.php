@@ -9,18 +9,26 @@ use App\Models\ {User, Image};
 
 
 use App\Repositories\ {
-    ImageRepository, CategoryRepository
+
+    ImageRepository, AlbumRepository, CategoryRepository
 };
 
 class ImageController extends Controller
 {
-    protected $repository;
-    protected $categoryRepository;
+    protected  $imageRepository;
 
-    public function __construct( ImageRepository $imageRepository, CategoryRepository $categoryRepository)
+    protected $categoryRepository;
+    protected $albumRepository;
+
+
+    public function __construct( ImageRepository $imageRepository,
+                                 CategoryRepository $categoryRepository ,
+                                 AlbumRepository $albumRepository)
      {
        $this->imageRepository = $imageRepository;
         $this->categoryRepository = $categoryRepository;
+         $this->albumRepository = $albumRepository;
+
      }
 
 
@@ -38,6 +46,15 @@ class ImageController extends Controller
 
         return view ('home', compact ('user', 'images'));
     }
+
+
+    public function album($slug)
+    {
+        $album = $this->albumRepository->getBySlug ($slug);
+        $images = $this->imageRepository->getImagesForAlbum ($slug);
+        return view ('home', compact ('album', 'images'));
+    }
+
 
 
     /**
